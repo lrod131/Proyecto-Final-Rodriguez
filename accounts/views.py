@@ -4,7 +4,7 @@ from django.urls import reverse_lazy
 from .forms import *
 
 class registro_usuario(FormView):
-    template_name= 'accounts/registro.html'
+    template_name= 'accounts/signup.html'
     form_class = FormularioRegistro
     success_url = reverse_lazy('accounts:Success')
     

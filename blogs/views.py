@@ -8,6 +8,11 @@ from django.utils import timezone
 from django.db.models import Q
 from .forms import *
 from django.urls import reverse
+
+def about(request):
+    return render(request,'blogs/about.html')
+
+
 def home_page(request):
     post = Post.objects.filter(fecha_publicacion__lte=timezone.now())
     destacado = Post.objects.filter(destacado=True,fecha_publicacion__lte=timezone.now())

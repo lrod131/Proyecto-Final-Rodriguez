@@ -24,8 +24,12 @@
                                    href="{% url 'blogs:listaCategorias' categorias.slug %}">{{ categorias.titulo }}</a></li>
                         {% endfor %}
                     </ul>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'blogs:acerca' %}">Acerca de mí</a>
+                    </li>
                 </li>
             </ul>
+            
             <form class="d-flex" role="search" action="{% url 'blogs:buscar'  %}" method="get">
                 <input name="search" class="form-control me-2" type="search" placeholder="Buscar" aria-label="Search">
                 <button class="btn btn-outline-success" type="submit">Buscar</button>
