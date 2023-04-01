@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     'crispy_bootstrap5',
     'accounts',
     'blogs',
+    'message',
+    'widget_tweaks',
 ]
 
 MIDDLEWARE = [

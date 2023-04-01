@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% load markdown_extras %}
+{% load crispy_forms_tags %}
+
+{% block content %} 
+    <div class="row g-5 justify-content-start text-center ">
+        <div class="col-md-9">
+            <h2 class="pb-4 mb-4 bold border-bottom">Todos los mensajes</h2>
+        </div>
+
+        <div class="container px-4 px-lg-5">
+            <div class="row gx-4 gx-lg-5 justify-content-center">
+                <div class="col-md-10 col-lg-8 col-xl-7">
+                    <div class="container mt-5">
+                        {% if object_list %}
+                        
+                        {% for message in object_list %}
+                        <div class="post-preview">
+                            <a href="{%url 'message:Message_detail' message.id%}">
+                                <p class="post-title">{{message.title}}</p>
+                            </a>
+                            <p class="post-meta">Mensaje Enviado por {{message.sender}} el {{message.date}}</p>
+                            <a href="{%url 'message:Message_detail' message.id%}">Leer</a>
+                        </div>
+                        {% endfor %}
+                        <div class="row gx-4 gx-lg-5 justify-content-center">
+                            <div class="container mt-5">
+                                <a href="{% url 'message:New_message' %}" class="btn btn-success">Nuevo mensaje</a>
+                                <p><a href="/">Volver al inicio</a></p>
+                            </div>
+                        </div>
+                        {% else %}
+                            <h2>No hay mensajes en la bandeja de entrada</h2>
+                            <p></p>
+                            <a href="{% url 'message:New_message' %}" class="btn btn-success">Nuevo mensaje</a> 
+                            <p><a href="/">Volver al inicio</a></p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>    
+{% endblock content%}
