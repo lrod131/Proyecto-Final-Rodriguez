@@ -69,4 +69,8 @@ Una vez que el servidor esté en funcionamiento, puede acceder a las siguientes 
 
 ## Demostración
 
-Para ver el funcionamiento de la aplicacion puedes entrar al siguiente [link](https://www.google.com)
+Para ver el funcionamiento de la aplicacion puedes entrar al siguiente [link](https://youtu.be/C_j6ZdajxYg)
+
+Cuenta admin: 
+username: admin
+password: admin
