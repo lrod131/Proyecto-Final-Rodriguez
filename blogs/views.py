@@ -1,17 +1,17 @@
 from django.shortcuts import render
-from blogs.models import *
 from django.views import generic,View
 from django.views.generic.detail import SingleObjectMixin
 from django.views.generic import FormView
 from django.contrib.auth.mixins import LoginRequiredMixin 
 from django.utils import timezone
 from django.db.models import Q
-from .forms import *
 from django.urls import reverse
+from django.views.generic.edit import CreateView
+from .models import *
+from .forms import *
 
 def about(request):
     return render(request,'blogs/about.html')
-
 
 def home_page(request):
     post = Post.objects.filter(fecha_publicacion__lte=timezone.now())
@@ -21,7 +21,7 @@ def home_page(request):
 
 class postDetailView(generic.DetailView):
     model = Post
-    queryset = Post.objects.filter(fecha_publicacion__lte=timezone.now())
+    queryset = Post.objects.all()
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -47,6 +47,11 @@ class PostComentarioForm(LoginRequiredMixin, SingleObjectMixin, FormView):
     def get_success_url(self):
         return reverse('blogs:post',kwargs={'slug':self.object.slug})+'#comments-section'
 
+class PostCreate(CreateView):
+    model = Post
+    success_url ="/"
+    form_class = PostForm
+
 class PostView(View):
     def get(self,request,*args,**kwargs):
         view = postDetailView.as_view()
@@ -59,7 +64,7 @@ class PostView(View):
 class VistaPostDestacados(generic.ListView):
     model = Post
     template_name = 'blogs/lista_destacados.html'
-    paginate_by = 1
+    paginate_by = 10
     
     def get_queryset(self):
         query = Post.objects.filter(destacado=True,fecha_publicacion__lte=timezone.now())
@@ -68,7 +73,7 @@ class VistaPostDestacados(generic.ListView):
 class VistaListaCategorias(generic.ListView):
     model = Post
     template_name = 'blogs/lista_destacados.html'
-    paginate_by = 1
+    paginate_by = 10
 
     def get_queryset(self):
         query = self.request.path.replace('/categorias/','')
@@ -78,7 +83,7 @@ class VistaListaCategorias(generic.ListView):
 class VistaBuscar(generic.ListView):
     model = Post
     template_name = 'blogs/lista_destacados.html'
-    paginate_by = 1
+    paginate_by = 10
 
     def get_queryset(self):
         query = self.request.GET.get('search')

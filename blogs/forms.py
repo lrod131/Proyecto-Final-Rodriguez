@@ -6,3 +6,12 @@ class ResponderComentario(forms.ModelForm):
     class Meta:
         model = Comentario
         fields = ['contenido']
+
+class PostForm(forms.ModelForm):
+    destacado = forms.BooleanField(required=False, widget=forms.CheckboxInput)
+    categorias = forms.ModelMultipleChoiceField(queryset=Categoria.objects.all(), widget=forms.CheckboxSelectMultiple)
+
+    class Meta:
+        model = Post
+        fields = ['titulo','subtitulo','slug','categorias','resumen','cuerpo','autor','destacado','imagen']
+

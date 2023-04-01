@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block content %} 
+{% load widget_tweaks %}
+
+
+<div class="container mt-5">
+    <h2 class="pb-4 mb-4 bold border-bottom">Nuevo artículo</h2>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        {% for hidden in form.hidden_fields %}
+            {{ hidden }}
+        {% endfor %}
+
+        {% for field in form.visible_fields %}
+            <div class="form-group">
+                <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                {% if field.name == "destacado" or field.name == "categorias" %}
+                    {{ field }}
+                {% else %}
+                    {{ field|add_class:'form-control col-sm-6' }}
+                {% endif %}
+                {% for error in field.errors %}
+                    <span class="help-block">{{ error }}</span>
+                {% endfor %}
+            </div>
+        {% endfor %}
+
+        <div class="container mt-5">
+            <button type="submit" class="btn btn-success">
+                <span class="glyphicon glyphicon-ok"></span>Publicar</button>
+            <a href="/" class="btn btn-default">Cancelar</a>
+        </div>
+    </form>
+</div>
+ 
+{% endblock content%}
